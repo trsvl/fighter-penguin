@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : UnitStats
 {
-    [SerializeField] private PlayerJump playerJump;
-    [SerializeField] private PlayerAttack playerAttack;
-    internal Animator animator;
+    [Header("References")]
+    [SerializeField] internal PlayerJump playerJump;
+    [SerializeField] internal PlayerAttack playerAttack;
+    [SerializeField] internal Animator animator;
     internal Rigidbody2D rb;
 
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 }

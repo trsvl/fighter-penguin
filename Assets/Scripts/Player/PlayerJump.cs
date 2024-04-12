@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private ParticleSystem groundSlam;
     [SerializeField] private float jumpForce;
     private Animator animator;
     private Rigidbody2D rb;
@@ -10,7 +11,8 @@ public class PlayerJump : MonoBehaviour
     private bool triggerForcedFalling;
     private bool isJumped;
     private bool isFalling;
-    private bool isForcedFalling;
+    internal bool isForcedFalling;
+
 
     private void Start()
     {
@@ -20,14 +22,13 @@ public class PlayerJump : MonoBehaviour
 
     private void Update()
     {
-
-        JumpController();
-        ForcedLandingController();
-
-        if (isJumped && !isFalling && rb.velocity.y <= 0)
+        if (isJumped && !isFalling && rb.velocity.y < 0)
         {
             ManageFalling(true);
         }
+
+        ForcedLandingController();
+        JumpController();
     }
     private void FixedUpdate()
     {
@@ -41,9 +42,8 @@ public class PlayerJump : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
         {
-            isJumped = true;
+            ManageJump(true);
             triggerJump = true;
-            animator.SetTrigger("Jump");
         }
     }
     private void ForcedLandingController()
@@ -70,29 +70,37 @@ public class PlayerJump : MonoBehaviour
         if (!triggerForcedFalling) return;
 
         triggerForcedFalling = false;
-        rb.gravityScale = 5;
+        rb.gravityScale = 10;
     }
 
     private void ManageFalling(bool value)
     {
         isFalling = value;
-        animator.SetBool("Falling", value);
+        animator.SetBool("IsFalling", value);
+    }
+    private void ManageJump(bool value)
+    {
+        isJumped = value;
+        animator.SetBool("IsJumped", value);
+    }
+
+    private void FallingAttackAnimation()
+    {
+        if (!isForcedFalling) return;
+
+        isForcedFalling = false;
+        animator.SetTrigger("FallingAttack");
+        groundSlam.Play();
+        rb.gravityScale = 1;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (isJumped && collision.gameObject.CompareTag("Ground"))
         {
-            isJumped = false;
+            ManageJump(false);
             ManageFalling(false);
-
-            if (isForcedFalling)
-            {
-                isForcedFalling = false;
-                animator.SetTrigger("FlytingAttack");
-                rb.gravityScale = 1;
-                //ATTACK REFERENCE
-            }
+            FallingAttackAnimation();
         }
     }
 }
