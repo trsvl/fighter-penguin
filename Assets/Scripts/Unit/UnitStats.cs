@@ -10,6 +10,9 @@ public class UnitStats : MonoBehaviour
     [SerializeField] private int damage;
     public int Damage { get { return damage; } }
 
+    [SerializeField] private float moveSpeed;
+    protected float MoveSpeed => moveSpeed;
+
     [SerializeField] private Color32 colorOnHit;
     private SpriteRenderer unitSprite;
     private Color32 initialPlayerColor;

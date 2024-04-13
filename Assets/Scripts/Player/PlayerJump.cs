@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerJump : MonoBehaviour
+public class PlayerJump : MonoBehaviour, IJump
 {
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private ParticleSystem groundSlam;
@@ -9,9 +9,12 @@ public class PlayerJump : MonoBehaviour
     private Rigidbody2D rb;
     private bool triggerJump;
     private bool triggerForcedFalling;
-    private bool isJumped;
     private bool isFalling;
+    private bool isJumped;
+
     internal bool isForcedFalling;
+    public bool IsJumped { get { return isJumped; } }
+    public bool IsFalling { get { return isFalling; } }
 
 
     private void Start()
