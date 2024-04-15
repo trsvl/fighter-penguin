@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (playerManager.playerJump.isForcedFalling) return;
+        if (playerManager.playerJump.IsForcedFalling) return;
 
         LeftAttack();
         RightAttack();

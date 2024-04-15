@@ -2,24 +2,30 @@ using UnityEngine;
 
 public class Shadow : MonoBehaviour
 {
-    [SerializeField] private GameObject jumpScriptGameObject;
+    [SerializeField] private UnitManager unitManager;
+    [SerializeField] private UnitJump jumpScript;
     [SerializeField] private Vector3 targetScale;
     [SerializeField] private float timeScale;
-    private IJump jumpScript;
     private Vector3 initialScale;
+    private float initialYPosition;
 
 
     private void Start()
     {
-        jumpScript = jumpScriptGameObject.GetComponent<IJump>();
         initialScale = transform.localScale;
+        initialYPosition = transform.position.y;
     }
 
     private void Update()
     {
-        if (jumpScript == null) return;
-
         if (!jumpScript.IsJumped) return;
+
+        if (!unitManager.isPlayer)
+        {
+            Vector3 newPosition = transform.position;
+            newPosition.y = initialYPosition;
+            transform.position = newPosition;
+        }
 
         if (jumpScript.IsFalling)
         {

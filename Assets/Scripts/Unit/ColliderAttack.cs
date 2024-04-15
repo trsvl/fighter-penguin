@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class ColliderAttack : MonoBehaviour
 {
-    [SerializeField] private UnitStats unit;
+    [SerializeField] private UnitManager unit;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(unit.CompareTag("Player") ? "Enemy" : "Player"))
         {
-            collision.GetComponent<UnitStats>().TakeDamage(unit.Damage);
+            collision.GetComponent<UnitManager>().TakeDamage(unit.Damage);
         }
     }
 }
