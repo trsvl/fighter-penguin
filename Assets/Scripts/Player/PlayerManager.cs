@@ -6,6 +6,7 @@ public class PlayerManager : UnitManager
     [SerializeField] internal PlayerJump playerJump;
     [SerializeField] internal PlayerAttack playerAttack;
     [SerializeField] private HPBar hpBar;
+    [SerializeField] private PopUpManager popUpManager;
     public int MaxHP { get; private set; }
 
 
@@ -23,7 +24,7 @@ public class PlayerManager : UnitManager
 
         if (hp <= 0)
         {
-            print("restart game");
+            popUpManager.ShowPopUpRestart();
         }
     }
 }
