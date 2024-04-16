@@ -4,21 +4,18 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] private int hp;
-    public int HP { get { return hp; } }
-
+    [SerializeField] protected int hp;
     [SerializeField] private int damage;
-    public int Damage { get { return damage; } }
-
     [SerializeField] private Color32 colorOnHit;
     private Color32 initialPlayerColor;
     private SpriteRenderer unitSprite;
     internal Rigidbody2D rb;
     internal Animator animator;
     internal bool isPlayer;
+    public int Damage { get { return damage; } }
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         unitSprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
@@ -27,14 +24,10 @@ public class UnitManager : MonoBehaviour
         isPlayer = gameObject.CompareTag("Player");
     }
 
-    public void TakeDamage(int takenDamage)
+    public virtual void TakeDamage(int takenDamage)
     {
         hp -= takenDamage;
         StartCoroutine(ChangeColor());
-        if (hp <= 0 && !isPlayer)
-        {
-            Destroy(gameObject);
-        }
     }
 
     private IEnumerator ChangeColor()
