@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private float spawnTimer;
     [SerializeField] private List<EnemyManager> enemies;
+    [SerializeField] private EnemyManager boss;
     [SerializeField] private Transform leftSpawnPoint;
     [SerializeField] private Transform rightSpawnPoint;
     [SerializeField] private Transform playerPoint;
@@ -26,14 +27,16 @@ public class EnemySpawner : MonoBehaviour
         enemy.enemyMovement.SetData(isLeftSpawnSide, leftSpawnPoint, rightSpawnPoint, playerPoint);
 
         enemiesCount++;
-        SpawnBoss();
+
+        SpawnBoss(spawnPoint, isLeftSpawnSide);
     }
 
-    private void SpawnBoss()
+    private void SpawnBoss(Transform spawnPoint, bool isLeftSpawnSide)
     {
         if (enemiesCount % 10 == 0)
         {
-            print("boss");
+            EnemyManager enemy = Instantiate(boss, spawnPoint);
+            enemy.enemyMovement.SetData(isLeftSpawnSide, leftSpawnPoint, rightSpawnPoint, playerPoint, true);
         }
     }
 }

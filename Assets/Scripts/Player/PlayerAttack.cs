@@ -39,5 +39,4 @@ public class PlayerAttack : MonoBehaviour
         animator.SetTrigger("Attack");
         transform.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
     }
-
 }

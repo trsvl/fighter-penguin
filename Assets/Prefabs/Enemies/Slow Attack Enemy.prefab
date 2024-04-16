@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8080440181181233155}
   - component: {fileID: 905750341812847789}
-  - component: {fileID: 8779050893978178271}
   m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
@@ -85,21 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8779050893978178271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161368347678340264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef7a46db1c6f834c8fc3f114b28ea20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitManager: {fileID: 8831491662452708184}
-  targetScale: {x: 2.5, y: 0.5, z: 1}
-  timeScale: 10
 --- !u!1 &1296145796664269794
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,14 +94,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5281515384974456780}
   - component: {fileID: 8831491662452708184}
-  - component: {fileID: 2719059918243712570}
   - component: {fileID: 7023091650180631616}
+  - component: {fileID: 6509878591257817766}
   - component: {fileID: 2245630643458212461}
   - component: {fileID: 8747139367646081737}
   - component: {fileID: 6209839073870850942}
   - component: {fileID: 6337449811680473675}
   m_Layer: 7
-  m_Name: Jumping Enemy
+  m_Name: Slow Attack Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +117,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8275402225094512768}
@@ -152,33 +136,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac8a0ac71c23884f9a8860153d4819a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2
-  damage: 1
+  hp: 6
+  damage: 2
   colorOnHit:
     serializedVersion: 2
     rgba: 4282664153
-  moveSpeed: 3
-  isAttackingUnit: 0
+  moveSpeed: 2
+  isAttackingUnit: 1
   isImmune: 0
   enemyMovement: {fileID: 7023091650180631616}
-  enemyAttack: {fileID: 0}
-  enemyJump: {fileID: 2719059918243712570}
---- !u!114 &2719059918243712570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1296145796664269794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 693e472a3794c774997e3ac95a287df3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitManager: {fileID: 8831491662452708184}
-  jumpForce: 7
-  groundSlam: {fileID: 0}
-  isHasFallingAttack: 0
+  enemyAttack: {fileID: 6509878591257817766}
+  enemyJump: {fileID: 0}
 --- !u!114 &7023091650180631616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,8 +160,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 8831491662452708184}
-  spawnPointProximityThreshold: 3
+  spawnPointProximityThreshold: 4
   tossBackPower: 5
+--- !u!114 &6509878591257817766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296145796664269794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666afd3a2735ba241988fa6c64c4883c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyManager: {fileID: 8831491662452708184}
+  attackCoolDown: 3
+  isFallingAttack: 0
 --- !u!212 &2245630643458212461
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -234,9 +217,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 98
+  m_SortingOrder: 96
   m_Sprite: {fileID: 21300000, guid: 901639f1dddd7b04aa3c943786d274d5, type: 3}
-  m_Color: {r: 0.8584906, g: 0.9372549, b: 0.23082057, a: 1}
+  m_Color: {r: 0.10582057, g: 0.5251024, b: 0.5471698, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -328,7 +311,7 @@ Animator:
   m_GameObject: {fileID: 1296145796664269794}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3c976b11346948446ae3ffbbb4f61588, type: 2}
+  m_Controller: {fileID: 9100000, guid: 234eb4233758786449fff8b8f610119c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -351,7 +334,7 @@ GameObject:
   - component: {fileID: 860779859993129693}
   - component: {fileID: 7731361436580029946}
   m_Layer: 7
-  m_Name: Collider Touch Attack
+  m_Name: Collider Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -393,7 +376,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9204404579671604192}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -418,7 +401,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1}
+  m_Offset: {x: 1, y: -1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -429,5 +412,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2.7}
+  m_Size: {x: 1, y: 2.7}
   m_EdgeRadius: 0

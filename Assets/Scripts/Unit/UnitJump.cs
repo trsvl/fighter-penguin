@@ -45,12 +45,14 @@ public class UnitJump : MonoBehaviour
         ManageJump(true);
         triggerJump = true;
     }
+
     protected virtual void ForcedLandingController()
     {
         isForcedFalling = true;
         triggerForcedFalling = true;
         ManageFalling(true);
     }
+
     protected void Jump()
     {
         if (!triggerJump) return;
@@ -58,6 +60,7 @@ public class UnitJump : MonoBehaviour
         triggerJump = false;
         rb.AddForce(new Vector2(rb.velocity.x, jumpForce), ForceMode2D.Impulse);
     }
+
     protected void ForcedLanding()
     {
         if (!triggerForcedFalling) return;

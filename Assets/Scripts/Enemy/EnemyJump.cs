@@ -3,6 +3,8 @@ using UnityEngine;
 public class EnemyJump : UnitJump
 {
     [SerializeField] private bool isHasFallingAttack;
+    private bool isTouchedGround;
+    public bool TriggerJump { get; set; }
 
 
     protected override void Update()
@@ -24,9 +26,17 @@ public class EnemyJump : UnitJump
 
     protected override void JumpController()
     {
-        if (isJumped) return;
+        if (isJumped || !isTouchedGround) return;
 
-        base.JumpController();
+        if (isHasFallingAttack && TriggerJump)
+        {
+            TriggerJump = false;
+            base.JumpController();
+        }
+        else if (!isHasFallingAttack)
+        {
+            base.JumpController();
+        }
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
@@ -40,6 +50,10 @@ public class EnemyJump : UnitJump
             {
                 FallingAttackAnimation();
             }
+        }
+        else if (!isTouchedGround && collision.gameObject.CompareTag("Ground"))
+        {
+            isTouchedGround = true;
         }
     }
 }
